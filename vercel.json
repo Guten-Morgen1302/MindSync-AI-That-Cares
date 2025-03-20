@@ -4,7 +4,6 @@
   "devCommand": "next dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "outputDirectory": ".next",
-  "routes": [{ "src": "/(.*)", "dest": "/" }]
+  "outputDirectory": ".next"
 }
 

@@ -1,3 +1,5 @@
+# 🏆 Competition Submission (OpenServ AI Hackathon)
+
 # NeuroPulse: AI-Powered Cyberpunk Wellness Companion
 
 ## Introduction

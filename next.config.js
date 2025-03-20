@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  transpilePackages: [],
   images: {
     domains: ["images.unsplash.com"],
     remotePatterns: [

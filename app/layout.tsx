@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "MindSync - AI Wellness Platform",
   description:
     "Experience the future of mental wellness with our cyberpunk-inspired AI that adapts to your emotions and guides your mindfulness journey.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 }
 
 export default function RootLayout({

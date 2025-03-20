@@ -41,17 +41,14 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
-                  href="/meditation"
+                  href="/ai-chat"
                   className="px-8 py-3 rounded-md bg-gradient-to-r from-fuchsia-600 to-violet-600 text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-fuchsia-500/30 hover:scale-105"
                 >
-                  Try Meditation
+                  Try AI Chat
                 </Link>
-                <Link
-                  href="/ai-chat"
-                  className="px-8 py-3 rounded-md bg-transparent border border-cyan-500 text-cyan-400 font-medium transition-all duration-300 hover:bg-cyan-500/10 hover:shadow-lg hover:shadow-cyan-500/20"
-                >
+                <button className="px-8 py-3 rounded-md bg-transparent border border-cyan-500 text-cyan-400 font-medium transition-all duration-300 hover:bg-cyan-500/10 hover:shadow-lg hover:shadow-cyan-500/20">
                   Explore Features
-                </Link>
+                </button>
               </div>
               <div className="flex items-center gap-4 text-neutral-400">
                 <div className="flex -space-x-2">
@@ -348,7 +345,7 @@ export default function Home() {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 2 12C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                       stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="round"

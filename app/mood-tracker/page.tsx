@@ -7,8 +7,6 @@ export default function MoodTracker() {
   const [selectedTriggers, setSelectedTriggers] = useState<string[]>([])
   const [noteText, setNoteText] = useState("")
   const [moodSaved, setMoodSaved] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const [modalContent, setModalContent] = useState({ title: "", description: "" })
 
   const moods = [
     { name: "Happy", icon: "sentiment_very_satisfied", color: "bg-green-500" },
@@ -53,44 +51,6 @@ export default function MoodTracker() {
     }, 3000)
   }
 
-  const handleIconClick = (type: string) => {
-    switch (type) {
-      case "calendar":
-        setModalContent({
-          title: "Mood Calendar",
-          description:
-            "View your mood patterns over time. Track your emotional journey and identify trends in your wellbeing.",
-        })
-        break
-      case "insights":
-        setModalContent({
-          title: "Mood Insights",
-          description:
-            "Detailed analytics about your emotional patterns. Our AI analyzes your mood data to provide personalized recommendations.",
-        })
-        break
-      case "settings":
-        setModalContent({
-          title: "Mood Tracker Settings",
-          description:
-            "Customize your mood tracking experience. Adjust notification preferences, data visualization, and privacy settings.",
-        })
-        break
-    }
-    setShowModal(true)
-  }
-
-  // Weekly mood data for visualization
-  const weeklyMoodData = [
-    { day: "Mon", height: "h-1/3", color: "bg-red-500/70", mood: "Sad" },
-    { day: "Tue", height: "h-2/3", color: "bg-yellow-500/70", mood: "Anxious" },
-    { day: "Wed", height: "h-1/2", color: "bg-blue-500/70", mood: "Content" },
-    { day: "Thu", height: "h-3/4", color: "bg-green-500/70", mood: "Happy" },
-    { day: "Fri", height: "h-2/5", color: "bg-yellow-500/70", mood: "Anxious" },
-    { day: "Sat", height: "h-3/5", color: "bg-blue-500/70", mood: "Content" },
-    { day: "Sun", height: "h-1/2", color: "bg-green-500/70", mood: "Happy" },
-  ]
-
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-8">
       <div className="bg-gradient-to-br from-neutral-950 to-neutral-900 rounded-xl shadow-2xl p-8 text-white">
@@ -103,22 +63,13 @@ export default function MoodTracker() {
               <h1 className="text-3xl font-bold">Mood Tracker</h1>
             </div>
             <div className="flex items-center gap-4">
-              <button
-                className="bg-neutral-800 hover:bg-neutral-700 transition-all duration-300 p-2 rounded-lg text-neutral-300"
-                onClick={() => handleIconClick("calendar")}
-              >
+              <button className="bg-neutral-800 hover:bg-neutral-700 transition-all duration-300 p-2 rounded-lg text-neutral-300">
                 <span className="material-symbols-outlined">calendar_month</span>
               </button>
-              <button
-                className="bg-neutral-800 hover:bg-neutral-700 transition-all duration-300 p-2 rounded-lg text-neutral-300"
-                onClick={() => handleIconClick("insights")}
-              >
+              <button className="bg-neutral-800 hover:bg-neutral-700 transition-all duration-300 p-2 rounded-lg text-neutral-300">
                 <span className="material-symbols-outlined">insights</span>
               </button>
-              <button
-                className="bg-neutral-800 hover:bg-neutral-700 transition-all duration-300 p-2 rounded-lg text-neutral-300"
-                onClick={() => handleIconClick("settings")}
-              >
+              <button className="bg-neutral-800 hover:bg-neutral-700 transition-all duration-300 p-2 rounded-lg text-neutral-300">
                 <span className="material-symbols-outlined">settings</span>
               </button>
             </div>
@@ -199,16 +150,25 @@ export default function MoodTracker() {
               </div>
 
               <div className="h-[300px] bg-neutral-900 rounded-lg p-4 flex items-end justify-between">
-                {weeklyMoodData.map((item) => (
-                  <div key={item.day} className="flex flex-col items-center w-1/7 gap-2">
-                    <div className={`w-full ${item.height} ${item.color} rounded-t-sm relative group`}>
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-neutral-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                        {item.mood}
-                      </div>
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, index) => {
+                  const heights = ["h-1/3", "h-2/3", "h-1/2", "h-3/4", "h-2/5", "h-3/5", "h-1/2"]
+                  const colors = [
+                    "bg-red-500/70",
+                    "bg-yellow-500/70",
+                    "bg-blue-500/70",
+                    "bg-green-500/70",
+                    "bg-yellow-500/70",
+                    "bg-blue-500/70",
+                    "bg-green-500/70",
+                  ]
+
+                  return (
+                    <div key={day} className="flex flex-col items-center w-1/7 gap-2">
+                      <div className={`w-full ${heights[index]} ${colors[index]} rounded-t-sm`}></div>
+                      <span className="text-neutral-400 text-sm">{day}</span>
                     </div>
-                    <span className="text-neutral-400 text-sm">{item.day}</span>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
 
               <div className="mt-4 flex justify-between">
@@ -320,29 +280,6 @@ export default function MoodTracker() {
           </div>
         </div>
       </div>
-
-      {/* Modal for icon actions */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-neutral-800 rounded-xl p-6 max-w-md w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-white">{modalContent.title}</h3>
-              <button className="text-neutral-400 hover:text-white" onClick={() => setShowModal(false)}>
-                <span className="material-symbols-outlined">close</span>
-              </button>
-            </div>
-            <p className="text-neutral-300 mb-6">{modalContent.description}</p>
-            <div className="flex justify-end">
-              <button
-                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-500 transition-colors"
-                onClick={() => setShowModal(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

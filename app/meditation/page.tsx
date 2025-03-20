@@ -8,15 +8,11 @@ export default function Meditation() {
   const [meditationPlan, setMeditationPlan] = useState(false)
   const [activeSession, setActiveSession] = useState<string | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const [modalContent, setModalContent] = useState({ title: "", description: "" })
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   // Create audio element for breathing sound
   useEffect(() => {
-    // Create a dummy audio element since we don't have the actual file
-    audioRef.current = new Audio()
-    audioRef.current.src = "/meditation-sound.mp3"
+    audioRef.current = new Audio("/meditation-sound.mp3")
     audioRef.current.loop = true
 
     return () => {
@@ -42,14 +38,8 @@ export default function Meditation() {
   const startSession = (sessionName: string) => {
     setActiveSession(sessionName)
     if (audioRef.current) {
-      try {
-        audioRef.current.play().catch((e) => console.log("Audio play error:", e))
-        setIsPlaying(true)
-      } catch (error) {
-        console.error("Failed to play audio:", error)
-        // Still set as playing for demo purposes
-        setIsPlaying(true)
-      }
+      audioRef.current.play()
+      setIsPlaying(true)
     }
   }
 
@@ -58,37 +48,10 @@ export default function Meditation() {
       if (isPlaying) {
         audioRef.current.pause()
       } else {
-        audioRef.current.play().catch((e) => console.log("Audio play error:", e))
+        audioRef.current.play()
       }
       setIsPlaying(!isPlaying)
     }
-  }
-
-  const handleIconClick = (type: string) => {
-    switch (type) {
-      case "calendar":
-        setModalContent({
-          title: "Meditation Schedule",
-          description:
-            "View and manage your upcoming meditation sessions. Set reminders and track your progress over time.",
-        })
-        break
-      case "insights":
-        setModalContent({
-          title: "Meditation Insights",
-          description:
-            "View detailed analytics about your meditation practice. See trends, improvements, and personalized recommendations.",
-        })
-        break
-      case "settings":
-        setModalContent({
-          title: "Meditation Settings",
-          description:
-            "Customize your meditation experience. Adjust sound levels, visual preferences, and notification settings.",
-        })
-        break
-    }
-    setShowModal(true)
   }
 
   return (
@@ -100,24 +63,6 @@ export default function Meditation() {
             <h1 className="text-2xl font-bold text-white">MEDITATION AI</h1>
           </div>
           <div className="flex gap-4">
-            <button
-              className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 transition-colors"
-              onClick={() => handleIconClick("calendar")}
-            >
-              <span className="material-symbols-outlined text-white">calendar_month</span>
-            </button>
-            <button
-              className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 transition-colors"
-              onClick={() => handleIconClick("insights")}
-            >
-              <span className="material-symbols-outlined text-white">insights</span>
-            </button>
-            <button
-              className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 transition-colors"
-              onClick={() => handleIconClick("settings")}
-            >
-              <span className="material-symbols-outlined text-white">settings</span>
-            </button>
             <button
               className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-400 transition-all hover:shadow-lg hover:scale-105"
               onClick={() => {
@@ -301,7 +246,7 @@ export default function Meditation() {
                   <h3 className="text-white font-medium mb-1">Energizing Breath</h3>
                   <p className="text-neutral-300 text-sm">Start your day with focused breathing to awaken your mind.</p>
                   <button
-                    className="mt-3 text-primary-300 flex items-center group-hover:opacity-100 transition-opacity"
+                    className="mt-3 text-primary-300 flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
                     onClick={() => startSession("Energizing Breath")}
                   >
                     <span>Begin session</span>
@@ -320,7 +265,7 @@ export default function Meditation() {
                     Mid-day relaxation to center yourself and manage stress levels.
                   </p>
                   <button
-                    className="mt-3 text-primary-300 flex items-center group-hover:opacity-100 transition-opacity"
+                    className="mt-3 text-primary-300 flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
                     onClick={() => startSession("Stress Relief")}
                   >
                     <span>Begin session</span>
@@ -337,7 +282,7 @@ export default function Meditation() {
                   <h3 className="text-white font-medium mb-1">Deep Sleep Prep</h3>
                   <p className="text-neutral-300 text-sm">Calm your mind and prepare your body for restful sleep.</p>
                   <button
-                    className="mt-3 text-primary-300 flex items-center group-hover:opacity-100 transition-opacity"
+                    className="mt-3 text-primary-300 flex items-center opacity-0 group-hover:opacity-100 transition-opacity"
                     onClick={() => startSession("Deep Sleep Prep")}
                   >
                     <span>Begin session</span>
@@ -351,29 +296,6 @@ export default function Meditation() {
           )}
         </main>
       </div>
-
-      {/* Modal for icon actions */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-neutral-800 rounded-xl p-6 max-w-md w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-white">{modalContent.title}</h3>
-              <button className="text-neutral-400 hover:text-white" onClick={() => setShowModal(false)}>
-                <span className="material-symbols-outlined">close</span>
-              </button>
-            </div>
-            <p className="text-neutral-300 mb-6">{modalContent.description}</p>
-            <div className="flex justify-end">
-              <button
-                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-500 transition-colors"
-                onClick={() => setShowModal(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

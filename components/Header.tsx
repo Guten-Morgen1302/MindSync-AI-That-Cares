@@ -12,8 +12,6 @@ export default function Header() {
     return pathname === path
   }
 
-  const isHomePage = pathname === "/"
-
   return (
     <header className="relative z-10 py-6 px-8 border-b border-neutral-800">
       <div className="flex justify-between items-center">
@@ -135,15 +133,11 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-          {isHomePage && (
-            <Link
-              href="/meditation"
-              className="relative overflow-hidden px-4 py-2 rounded-md bg-gradient-to-r from-fuchsia-600 to-cyan-600 text-white font-medium transition-all duration-300 hover:from-fuchsia-500 hover:to-cyan-500 hover:shadow-lg hover:shadow-fuchsia-500/30 group"
-            >
-              <span className="z-10 relative">Get Started</span>
-              <span className="absolute inset-0 w-0 bg-gradient-to-r from-white/10 to-white/10 transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-          )}
+          {/* Removed sign-in button as requested */}
+          <button className="relative overflow-hidden px-4 py-2 rounded-md bg-gradient-to-r from-fuchsia-600 to-cyan-600 text-white font-medium transition-all duration-300 hover:from-fuchsia-500 hover:to-cyan-500 hover:shadow-lg hover:shadow-fuchsia-500/30 group">
+            <span className="z-10 relative">Get Started</span>
+            <span className="absolute inset-0 w-0 bg-gradient-to-r from-white/10 to-white/10 transition-all duration-300 group-hover:w-full"></span>
+          </button>
           <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
